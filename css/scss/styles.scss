@@ -1,0 +1,86 @@
+// IMPORTS ---------------------------------------------------------------------
+@import "normalize";
+
+// VARIABLES -------------------------------------------------------------------
+$white     : #ffffff;
+$lightGrey : #fcfcfc;
+$grey      : #dfdfdf;
+$darkGrey  : #83898d;
+$black     : #404a51;
+
+// FONTS -----------------------------------------------------------------------
+$font-url    :  'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
+$font-family :  'Open Sans', sans-serif;
+
+//Font Weights
+$font-weight-light  : 300;
+$font-weight-regular: 400;
+$font-weight-medium : 600;
+$font-weight-bold   : 700;
+
+// STYLES ----------------------------------------------------------------------
+* {
+	box-sizing: border-box;
+}
+
+body {
+  background-color: $lightGrey;
+  font-family: $font-family;
+}
+
+main {
+  padding: 1em;
+}
+
+h1, h2 {
+  color: $black;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5em;
+  font-weight: $font-weight-regular;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-weight: $font-weight-medium;
+  margin: .3em;
+}
+
+p {
+  margin: 0.3em;
+  color: $darkGrey;
+  font-weight: $font-weight-light;
+  text-align: center;
+}
+
+#employees {
+  //Flexbox
+  display: flex;
+	flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  //----------------
+}
+
+.employee-card {
+  //Flexbox
+  display: flex;
+	flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  //----------------
+  min-width: 300px;
+  margin-bottom: 1em;
+  padding: 1em;
+  background: $white;
+  border: 2px solid $grey;
+  border-radius: 5px;
+
+}
+
+.portrait {
+  border-radius: 50%;
+  max-width: 128px;
+}
