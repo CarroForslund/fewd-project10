@@ -1,4 +1,6 @@
-// IMPORTS ---------------------------------------------------------------------
+//==============================================================================
+// VARIABLES (utilities)
+//==============================================================================
 @import "normalize";
 
 //==============================================================================
@@ -28,7 +30,7 @@ $breakpoint-medium :   768px;
 $breakpoint-large  :  1024px;
 
 //==============================================================================
-// FUNCTIONS (utilities)
+// FUNCTIONS
 //==============================================================================
 
 // Make sure font variable is valid
@@ -37,7 +39,7 @@ $breakpoint-large  :  1024px;
 }
 
 //==============================================================================
-// MIXINS (utilities)
+// MIXINS
 //==============================================================================
 
 @mixin mediaquery($breakpoint){
@@ -61,7 +63,9 @@ $breakpoint-large  :  1024px;
   }
 }
 
-// STYLES ----------------------------------------------------------------------
+//==============================================================================
+// STYLING
+//==============================================================================
 * {
 	box-sizing: border-box;
 }
@@ -74,6 +78,8 @@ body {
 header,
 main {
   padding: 1em;
+  max-width: 2000px;
+  margin: auto;
 }
 
 header {
@@ -82,7 +88,12 @@ header {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  padding: 1em;
   //----------------
+  @include mediaquery(medium){
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 h1, h2 {
@@ -118,9 +129,9 @@ input[type="search"] {
   font-family: $font-family;
   font-weight: $font-weight-light;
   color: $black;
-  width: 100%;
+  // width: 100%;
   padding:1em;
-  margin: 1em auto;
+  // margin: 1em auto;
   background-color: $white;
   border: 2px solid $grey;
   border-radius: 4px;
@@ -163,17 +174,18 @@ input[type="search"] {
   @include mediaquery(medium){
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
   }
 }
 
 .employee-card {
   text-align: center;
-  min-width: 300px;
-  margin: 1em;
+  width: 300px;
+  margin: .5em;
   padding: 1em;
   background: $white;
   border: 2px solid $grey;
-  border-radius: 5px;
+  border-radius: 8px;
   @include mediaquery(medium){
     //Flexbox
     display: flex;
@@ -181,9 +193,18 @@ input[type="search"] {
     justify-content: flex-start;
     align-items: center;
     //----------------
-    h2, p {
+    width: 45%;
+    h2 {
       text-align: left;
     }
+    p {
+      text-align: left;
+      font-size: .8em;
+    }
+  }
+  @include mediaquery(large){
+    width: 31%;
+    padding: .5em;
   }
 }
 
@@ -194,16 +215,22 @@ input[type="search"] {
   padding: 1em;
   background: $white;
   border: 2px solid $grey;
-  border-radius: 5px;
+  border-radius: 8px;
   .portrait {
     margin-top: 0;
+    width: 128px;
   }
 }
 
 .portrait {
   border-radius: 50%;
-  max-width: 128px;
+  width: 128px;
   margin: 1em;
+  @include mediaquery(medium){
+    width: 100px;
+    margin-left: .1em;
+    margin-right: .5em;
+  };
 }
 
 .close-button,

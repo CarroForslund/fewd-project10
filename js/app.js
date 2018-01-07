@@ -2,6 +2,7 @@
 // Variables
 const employeesDiv = document.getElementById('employees');
 let employees = null;
+let searchResult = [];
 
 
 // Get employees from API
@@ -67,16 +68,15 @@ function displayEmployees(employees){
 
     // Display more detailed employee info on click
     employeeCard.addEventListener('click', function(){
-      displayEmployee(employeeNumber);
+      displayEmployee(employees, employeeNumber);
     });
   }
 }
 
-function displayEmployee(employeeNumber){
+function displayEmployee(employeeArray, employeeNumber){
 
   // Variables
-  const employee = employees[employeeNumber];
-
+  const employee = employeeArray[employeeNumber];
   const portrait = employee.picture.large;
   const name = capitalizeWords(employee.name.first) + ' ' + capitalizeWords(employee.name.last);
   const email = employee.email;
@@ -161,13 +161,23 @@ function displayEmployee(employeeNumber){
   previous.innerHTML = '&lsaquo;'
   employeeCard.appendChild(previous);
   previous.addEventListener('click', function(){
+
+    let employeeArray = null;
+
+    if (searchResult.length === 0){
+      employeeArray = employees;
+    }
+    else {
+      employeeArray = searchResult;
+    }
+
     if ((employeeNumber - 1) < 0){
       overlay.remove();
-      displayEmployee(employees.length -1);
+      displayEmployee(employeeArray, employeeArray.length -1);
     }
     else{
       overlay.remove();
-      displayEmployee(employeeNumber - 1);
+      displayEmployee(employeeArray, employeeNumber - 1);
     }
 
   });
@@ -177,14 +187,22 @@ function displayEmployee(employeeNumber){
   next.innerHTML = '&rsaquo;'
   employeeCard.appendChild(next);
   next.addEventListener('click', function(){
-    if ((employeeNumber + 1) > employees.length - 1){
+
+    let employeeArray = null;
+
+    if (searchResult.length === 0){
+      employeeArray = employees;
+    }
+    else {
+      employeeArray = searchResult;
+    }
+    if ((employeeNumber + 1) > employeeArray.length - 1){
       overlay.remove();
-      displayEmployee(0);
+      displayEmployee(employeeArray, 0);
     }
     else{
       overlay.remove();
-      displayEmployee(employeeNumber + 1);
-
+      displayEmployee(employeeArray, employeeNumber + 1);
     }
   });
 
@@ -194,44 +212,11 @@ function displayEmployee(employeeNumber){
 // SEARCH
 // =============================================================================
 const searchField = document.querySelector("input[id='search']");
-// searchField.addEventListener('keypress', function(){
-//   // Variabe declaration
-//   const input = searchField.value;
-//   let searchResult = [];
-//
-//   while (employeesDiv.firstChild) {
-//     employeesDiv.removeChild(employeesDiv.firstChild);
-//   }
-//
-//   // Only look for a match if it's not an empty string
-//   if (input.length > 0){
-//
-//     //If match save to search result
-//     for (let i = 0; i < employees.length; i++){
-//       if (employees[i].name.first.includes(input) || employees[i].name.last.includes(input) || employees[i].login.username.includes(input)){
-//         searchResult.push(employees[i]);
-//       }
-//     }
-//     console.log(searchResult);
-//     if (searchResult.length >= 1){
-//       displayEmployees(searchResult);
-//       searchResult = [];
-//     }
-//     else {
-//       console.log('no match found');
-//     }
-//
-//   }
-//   if (input === ''){
-//     displayEmployees(employees);
-//   }
-//
-// });
 searchField.onkeyup = function(){
 
   // Variabe declaration
   const input = searchField.value;
-  let searchResult = [];
+  searchResult = [];
 
   // Refresh datalist for every character added or removed in iput field
   while (employeesDiv.firstChild) {
@@ -247,29 +232,12 @@ searchField.onkeyup = function(){
 
     }
   }
-  if (searchResult === []){
+  if (searchResult.length === 0){
     console.log('no match found');
   }
   else {
     displayEmployees(searchResult);
   }
-
-
-  // if (searchResult.length >= 1){
-  //   while (employeesDiv.firstChild) {
-  //     employeesDiv.removeChild(employeesDiv.firstChild);
-  //   }
-  //
-  //   displayEmployees(searchResult);
-  //   searchResult = [];
-  // }
-  // else {
-  //   console.log('no match found');
-  // }
-  //
-  // if (input === ''){
-  // displayEmployees(employees);
-  // }
 
 };
 
