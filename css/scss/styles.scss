@@ -186,6 +186,10 @@ input[type="search"] {
   background: $white;
   border: 2px solid $grey;
   border-radius: 8px;
+  &:hover {
+    -webkit-box-shadow: 1px 1px 7px 7px $grey;
+    box-shadow: 1px 1px 7px 7px $grey;
+  }
   @include mediaquery(medium){
     //Flexbox
     display: flex;
