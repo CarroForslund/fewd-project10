@@ -233,6 +233,9 @@ searchField.onkeyup = function(){
     }
   }
   if (searchResult.length === 0){
+    const message = document.createElement('p');
+    message.innerHTML = 'No match found.'
+    employeesDiv.appendChild(message);
     console.log('no match found');
   }
   else {

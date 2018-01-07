@@ -441,7 +441,7 @@ input[type="search"] {
     #employees {
       flex-direction: row;
       flex-wrap: wrap;
-      justify-content: space-between; } }
+      justify-content: space-around; } }
 
 .employee-card {
   text-align: center;
