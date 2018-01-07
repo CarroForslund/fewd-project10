@@ -1,22 +1,65 @@
 // IMPORTS ---------------------------------------------------------------------
 @import "normalize";
 
-// VARIABLES -------------------------------------------------------------------
+//==============================================================================
+// VARIABLES (utilities)
+//==============================================================================
+
+// COLORS
 $white     : #ffffff;
 $lightGrey : #fcfcfc;
 $grey      : #dfdfdf;
 $darkGrey  : #83898d;
 $black     : #404a51;
 
-// FONTS -----------------------------------------------------------------------
+// FONTS
 $font-url    :  'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700';
 $font-family :  'Open Sans', sans-serif;
 
-//Font Weights
+// Font Weights
 $font-weight-light  : 300;
 $font-weight-regular: 400;
 $font-weight-medium : 600;
 $font-weight-bold   : 700;
+
+// BREAKPOINTS
+$breakpoint-small  :     1px;
+$breakpoint-medium :   768px;
+$breakpoint-large  :  1024px;
+
+//==============================================================================
+// FUNCTIONS (utilities)
+//==============================================================================
+
+// Make sure font variable is valid
+@if variable-exists($font-url){
+  @import url($font-url);
+}
+
+//==============================================================================
+// MIXINS (utilities)
+//==============================================================================
+
+@mixin mediaquery($breakpoint){
+  @if $breakpoint == 'small'{
+    @media (min-width: $breakpoint-small) and (max-width: $breakpoint-medium){
+      @content;
+    }
+  }
+  @else if $breakpoint == 'medium'{
+    @media (min-width: $breakpoint-medium){
+      @content;
+    }
+  }
+  @else if $breakpoint == 'large'{
+    @media (min-width: $breakpoint-large){
+      @content;
+    }
+  }
+  @else {
+    @error "Whoops! No value could be retrieved for '#{$breakpoint}'.";
+  }
+}
 
 // STYLES ----------------------------------------------------------------------
 * {
@@ -28,8 +71,18 @@ body {
   font-family: $font-family;
 }
 
+header,
 main {
   padding: 1em;
+}
+
+header {
+  //Flexbox
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  //----------------
 }
 
 h1, h2 {
@@ -58,7 +111,30 @@ p {
 hr {
   width: 100%;
   border: 0.5px solid $grey;
+  margin: 1em 0;
 }
+
+input[type="search"] {
+  font-family: $font-family;
+  font-weight: $font-weight-light;
+  color: $black;
+  width: 100%;
+  padding:1em;
+  margin: 1em auto;
+  background-color: $white;
+  border: 2px solid $grey;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.search {
+  background: $white url('../../img/icon-magnifying.svg') no-repeat right center;
+  background-position: 95%;
+  max-width: 300px;
+}
+
 
 #overlay {
   //Flexbox
@@ -84,21 +160,50 @@ hr {
   justify-content: flex-start;
   align-items: center;
   //----------------
+  @include mediaquery(medium){
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }
 
 .employee-card {
   text-align: center;
   min-width: 300px;
+  margin: 1em;
+  padding: 1em;
+  background: $white;
+  border: 2px solid $grey;
+  border-radius: 5px;
+  @include mediaquery(medium){
+    //Flexbox
+    display: flex;
+  	flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    //----------------
+    h2, p {
+      text-align: left;
+    }
+  }
+}
+
+.employee-card-detailed {
+  text-align: center;
+  width: 300px;
   margin-bottom: 1em;
   padding: 1em;
   background: $white;
   border: 2px solid $grey;
   border-radius: 5px;
+  .portrait {
+    margin-top: 0;
+  }
 }
 
 .portrait {
   border-radius: 50%;
   max-width: 128px;
+  margin: 1em;
 }
 
 .close-button,
@@ -111,6 +216,7 @@ hr {
   font-weight: bold;
   text-decoration: none;
   color: $darkGrey;
+  cursor: pointer;
   &:hover {
     opacity: 1;
   }

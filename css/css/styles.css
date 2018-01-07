@@ -360,8 +360,15 @@ body {
   background-color: #fcfcfc;
   font-family: "Open Sans", sans-serif; }
 
+header,
 main {
   padding: 1em; }
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; }
 
 h1, h2 {
   color: #404a51;
@@ -384,7 +391,27 @@ p {
 
 hr {
   width: 100%;
-  border: 0.5px solid #dfdfdf; }
+  border: 0.5px solid #dfdfdf;
+  margin: 1em 0; }
+
+input[type="search"] {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 300;
+  color: #404a51;
+  width: 100%;
+  padding: 1em;
+  margin: 1em auto;
+  background-color: #ffffff;
+  border: 2px solid #dfdfdf;
+  border-radius: 4px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; }
+
+.search {
+  background: #ffffff url("../../img/icon-magnifying.svg") no-repeat right center;
+  background-position: 95%;
+  max-width: 300px; }
 
 #overlay {
   display: flex;
@@ -405,19 +432,43 @@ hr {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center; }
+  @media (min-width: 768px) {
+    #employees {
+      flex-direction: row;
+      flex-wrap: wrap; } }
 
 .employee-card {
   text-align: center;
   min-width: 300px;
+  margin: 1em;
+  padding: 1em;
+  background: #ffffff;
+  border: 2px solid #dfdfdf;
+  border-radius: 5px; }
+  @media (min-width: 768px) {
+    .employee-card {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center; }
+      .employee-card h2, .employee-card p {
+        text-align: left; } }
+
+.employee-card-detailed {
+  text-align: center;
+  width: 300px;
   margin-bottom: 1em;
   padding: 1em;
   background: #ffffff;
   border: 2px solid #dfdfdf;
   border-radius: 5px; }
+  .employee-card-detailed .portrait {
+    margin-top: 0; }
 
 .portrait {
   border-radius: 50%;
-  max-width: 128px; }
+  max-width: 128px;
+  margin: 1em; }
 
 .close-button,
 .browse-button {
@@ -428,7 +479,8 @@ hr {
   font-size: 24px;
   font-weight: bold;
   text-decoration: none;
-  color: #83898d; }
+  color: #83898d;
+  cursor: pointer; }
   .close-button:hover,
   .browse-button:hover {
     opacity: 1; }

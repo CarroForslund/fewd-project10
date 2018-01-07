@@ -1,24 +1,24 @@
 'use strict'
 // Variables
+const employeesDiv = document.getElementById('employees');
 let employees = null;
+
 
 // Get employees from API
 $.ajax({
-  url: 'https://randomuser.me/api/?results=12&nat=us&inc=name,picture,email,location,cell,dob',
+  url: 'https://randomuser.me/api/?results=12&nat=us&inc=name,picture,email,location,cell,dob,login',
   dataType: 'json',
   error: function() {
     console.error("Couldn't get random users from API");
   },
   success: function(data) {
     employees = data.results;
-    displayEmployees();
+    displayEmployees(employees);
   },
 });
 
 // Create employee card for each employee and add to employees div
-function displayEmployees(){
-
-  const employeesDiv = document.getElementById('employees');
+function displayEmployees(employees){
 
   // for each (employee of employeeArray){
   for (let i = 0; i < employees.length; i++){
@@ -74,9 +74,6 @@ function displayEmployees(){
 
 function displayEmployee(employeeNumber){
 
-  console.log(employees[employeeNumber]);
-  console.log(employeeNumber);
-
   // Variables
   const employee = employees[employeeNumber];
 
@@ -107,7 +104,7 @@ function displayEmployee(employeeNumber){
   //Create and display the employee detailed card
   const hr = document.createElement('hr');
   const employeeCard = document.createElement('div');
-  employeeCard.className = 'employee-card';
+  employeeCard.className = 'employee-card-detailed';
   overlay.appendChild(employeeCard);
 
   //Create close button
@@ -192,6 +189,89 @@ function displayEmployee(employeeNumber){
   });
 
 }
+
+// =============================================================================
+// SEARCH
+// =============================================================================
+const searchField = document.querySelector("input[id='search']");
+// searchField.addEventListener('keypress', function(){
+//   // Variabe declaration
+//   const input = searchField.value;
+//   let searchResult = [];
+//
+//   while (employeesDiv.firstChild) {
+//     employeesDiv.removeChild(employeesDiv.firstChild);
+//   }
+//
+//   // Only look for a match if it's not an empty string
+//   if (input.length > 0){
+//
+//     //If match save to search result
+//     for (let i = 0; i < employees.length; i++){
+//       if (employees[i].name.first.includes(input) || employees[i].name.last.includes(input) || employees[i].login.username.includes(input)){
+//         searchResult.push(employees[i]);
+//       }
+//     }
+//     console.log(searchResult);
+//     if (searchResult.length >= 1){
+//       displayEmployees(searchResult);
+//       searchResult = [];
+//     }
+//     else {
+//       console.log('no match found');
+//     }
+//
+//   }
+//   if (input === ''){
+//     displayEmployees(employees);
+//   }
+//
+// });
+searchField.onkeyup = function(){
+
+  // Variabe declaration
+  const input = searchField.value;
+  let searchResult = [];
+
+  // Refresh datalist for every character added or removed in iput field
+  while (employeesDiv.firstChild) {
+    employeesDiv.removeChild(employeesDiv.firstChild);
+  }
+
+  //If match save to search result
+  for (let i = 0; i < employees.length; i++){
+    if (employees[i].name.first.includes(input.toLowerCase())  || employees[i].name.last.includes(input.toLowerCase()) || employees[i].login.username.includes(input.toLowerCase())){
+      searchResult.push(employees[i]);
+      const employeesDisplayed = document.querySelectorAll('employee-card');
+      console.log(searchResult);
+
+    }
+  }
+  if (searchResult === []){
+    console.log('no match found');
+  }
+  else {
+    displayEmployees(searchResult);
+  }
+
+
+  // if (searchResult.length >= 1){
+  //   while (employeesDiv.firstChild) {
+  //     employeesDiv.removeChild(employeesDiv.firstChild);
+  //   }
+  //
+  //   displayEmployees(searchResult);
+  //   searchResult = [];
+  // }
+  // else {
+  //   console.log('no match found');
+  // }
+  //
+  // if (input === ''){
+  // displayEmployees(employees);
+  // }
+
+};
 
 // =============================================================================
 // HELPER FUNCTIONS
