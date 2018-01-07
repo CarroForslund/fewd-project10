@@ -1,4 +1,6 @@
 'use strict'
+// Variables
+let employees = null;
 
 // Get employees from API
 $.ajax({
@@ -8,22 +10,22 @@ $.ajax({
     console.error("Couldn't get random users from API");
   },
   success: function(data) {
-    const employees = data.results;
-    displayEmployees(employees);
+    employees = data.results;
+    displayEmployees();
   },
 });
 
 // Create employee card for each employee and add to employees div
-function displayEmployees(employeeArray){
+function displayEmployees(){
 
   const employeesDiv = document.getElementById('employees');
 
   // for each (employee of employeeArray){
-  for (let i = 0; i < employeeArray.length; i++){
+  for (let i = 0; i < employees.length; i++){
 
     // Variables
-    const employee = employeeArray[i];
-
+    const employee = employees[i];
+    const employeeNumber = i;
     const portrait = employee.picture.large;
     const name = capitalizeWords(employee.name.first) + ' ' + capitalizeWords(employee.name.last);
     const email = employee.email;
@@ -31,12 +33,6 @@ function displayEmployees(employeeArray){
     const phone = employee.cell;
     const address = capitalizeWords(employee.location.street) + ', ' + employee.location.postcode;
     const birthday = employee.dob.substr(5, 2) + '/' + employee.dob.substr(8, 2) + '/' + employee.dob.substr(2, 2);
-
-    // const employee = {
-    //   portrait  : employee.picture.large,
-    //   name      :
-    // }
-
     // Employee Card
     const employeeCard = document.createElement('div');
     employeeCard.className = 'employee-card';
@@ -71,20 +67,26 @@ function displayEmployees(employeeArray){
 
     // Display more detailed employee info on click
     employeeCard.addEventListener('click', function(){
-      displayEmployee(employee);
+      displayEmployee(employeeNumber);
     });
   }
 }
 
-function displayEmployee(employee){
+function displayEmployee(employeeNumber){
+
+  console.log(employees[employeeNumber]);
+  console.log(employeeNumber);
+
   // Variables
+  const employee = employees[employeeNumber];
+
   const portrait = employee.picture.large;
   const name = capitalizeWords(employee.name.first) + ' ' + capitalizeWords(employee.name.last);
   const email = employee.email;
   const city = capitalizeWords(employee.location.city);
   const phone = employee.cell;
-  const address = capitalizeWords(employee.location.street) + ', ' + employee.location.city + ' ' + employee.location.postcode;
-  const birthday = employee.dob.substr(5, 2) + '/' + employee.dob.substr(8, 2) + '/' + employee.dob.substr(2, 2);
+  const address = capitalizeWords(employee.location.street) + ', ' + capitalizeWords(employee.location.city) + ' ' + employee.location.postcode;
+  const birthday = 'Birthday: ' + employee.dob.substr(5, 2) + '/' + employee.dob.substr(8, 2) + '/' + employee.dob.substr(2, 2);
 
   const main = document.getElementById('main');
 
@@ -93,8 +95,13 @@ function displayEmployee(employee){
   overlay.id = 'overlay';
   main.appendChild(overlay);
 
-  overlay.addEventListener('click', function(){
-    overlay.remove();
+  overlay.addEventListener('click', function(event){
+    if (event.target !== this) {
+      return;
+    }
+    else {
+      overlay.remove();
+    }
   });
 
   //Create and display the employee detailed card
@@ -102,6 +109,15 @@ function displayEmployee(employee){
   const employeeCard = document.createElement('div');
   employeeCard.className = 'employee-card';
   overlay.appendChild(employeeCard);
+
+  //Create close button
+  const close = document.createElement('p');
+  close.className = 'close-button';
+  close.innerHTML = '&times;';
+  close.addEventListener('click', function(){
+    overlay.remove();
+  });
+  employeeCard.appendChild(close);
 
   // Employee Portrait
   const employeePortrait = document.createElement('img');
@@ -125,6 +141,8 @@ function displayEmployee(employee){
   employeeCity.innerHTML = city;
   employeeCard.appendChild(employeeCity);
 
+  employeeCard.appendChild(hr);
+
   // Employee Phone
   const employeePhone = document.createElement('p');
   employeePhone.innerHTML = phone;
@@ -140,16 +158,38 @@ function displayEmployee(employee){
   employeeBirthday.innerHTML = birthday;
   employeeCard.appendChild(employeeBirthday);
 
-  //Create close button
-  const close = document.createElement('span');
-  close.className = 'close-card';
-  close.innerHTML = '&times;';
-  close.addEventListener('click', function(){
-    overlay.remove();
-  });
-  employeeCard.appendChild(close);
-
   //Create back and forvard buttons
+  const previous = document.createElement('span');
+  previous.className = 'browse-button';
+  previous.innerHTML = '&lsaquo;'
+  employeeCard.appendChild(previous);
+  previous.addEventListener('click', function(){
+    if ((employeeNumber - 1) < 0){
+      overlay.remove();
+      displayEmployee(employees.length -1);
+    }
+    else{
+      overlay.remove();
+      displayEmployee(employeeNumber - 1);
+    }
+
+  });
+
+  const next = document.createElement('span');
+  next.className = 'browse-button';
+  next.innerHTML = '&rsaquo;'
+  employeeCard.appendChild(next);
+  next.addEventListener('click', function(){
+    if ((employeeNumber + 1) > employees.length - 1){
+      overlay.remove();
+      displayEmployee(0);
+    }
+    else{
+      overlay.remove();
+      displayEmployee(employeeNumber + 1);
+
+    }
+  });
 
 }
 

@@ -398,7 +398,7 @@ hr {
   right: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(178, 178, 178, 0.5); }
+  background-color: rgba(0, 0, 0, 0.3); }
 
 #employees {
   display: flex;
@@ -407,10 +407,7 @@ hr {
   align-items: center; }
 
 .employee-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  text-align: center;
   min-width: 300px;
   margin-bottom: 1em;
   padding: 1em;
@@ -422,17 +419,21 @@ hr {
   border-radius: 50%;
   max-width: 128px; }
 
-.close-card {
+.close-button,
+.browse-button {
+  margin: 0;
+  text-align: right;
   opacity: 0.8;
   transition: all 200ms;
   font-size: 24px;
   font-weight: bold;
   text-decoration: none;
-  color: #666;
-  position: fixed;
-  top: 1em;
-  right: 1em; }
-  .close-card:hover {
+  color: #83898d; }
+  .close-button:hover,
+  .browse-button:hover {
     opacity: 1; }
+
+.browse-button {
+  margin: .5em; }
 
 /*# sourceMappingURL=styles.css.map */
