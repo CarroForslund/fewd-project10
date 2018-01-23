@@ -1,1 +1,3 @@
-# fewd-project10
+# Use a Public API to Create a Front End for an Employee Directory
+
+The tenth project in Team Treehouse's Front End Developer Techdegree
