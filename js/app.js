@@ -33,7 +33,7 @@ function displayEmployees(employees){
     const city = capitalizeWords(employee.location.city);
     const phone = employee.cell;
     const address = capitalizeWords(employee.location.street) + ', ' + employee.location.postcode;
-    const birthday = employee.dob.substr(5, 2) + '/' + employee.dob.substr(8, 2) + '/' + employee.dob.substr(2, 2);
+    const birthday = employee.dob.date.substr(5, 2) + '/' + employee.dob.date.substr(8, 2) + '/' + employee.dob.date.substr(2, 2);
     // Employee Card
     const employeeCard = document.createElement('div');
     employeeCard.className = 'employee-card';
@@ -83,7 +83,7 @@ function displayEmployee(employeeArray, employeeNumber){
   const city = capitalizeWords(employee.location.city);
   const phone = employee.cell;
   const address = capitalizeWords(employee.location.street) + ', ' + capitalizeWords(employee.location.city) + ' ' + employee.location.postcode;
-  const birthday = 'Birthday: ' + employee.dob.substr(5, 2) + '/' + employee.dob.substr(8, 2) + '/' + employee.dob.substr(2, 2);
+  const birthday = 'Birthday: ' + employee.dob.date.substr(5, 2) + '/' + employee.dob.date.substr(8, 2) + '/' + employee.dob.date.substr(2, 2);
 
   const main = document.getElementById('main');
 
@@ -228,15 +228,12 @@ searchField.onkeyup = function(){
     if (employees[i].name.first.includes(input.toLowerCase())  || employees[i].name.last.includes(input.toLowerCase()) || employees[i].login.username.includes(input.toLowerCase())){
       searchResult.push(employees[i]);
       const employeesDisplayed = document.querySelectorAll('employee-card');
-      console.log(searchResult);
-
     }
   }
   if (searchResult.length === 0){
     const message = document.createElement('p');
     message.innerHTML = 'No match found.'
     employeesDiv.appendChild(message);
-    console.log('no match found');
   }
   else {
     displayEmployees(searchResult);
@@ -250,9 +247,3 @@ searchField.onkeyup = function(){
 function capitalizeWords(string) {
   return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
-
-// function createAndAppendNode(element, attribute, setting, parentNode){
-//   const newNode = document.createElement(`'#{element}'`);
-//   newNode.attribute = setting;
-//   parentNode.appendChild(newNode);
-// }
