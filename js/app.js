@@ -250,9 +250,3 @@ searchField.onkeyup = function(){
 function capitalizeWords(string) {
   return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
-
-// function createAndAppendNode(element, attribute, setting, parentNode){
-//   const newNode = document.createElement(`'#{element}'`);
-//   newNode.attribute = setting;
-//   parentNode.appendChild(newNode);
-// }
