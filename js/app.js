@@ -225,7 +225,7 @@ searchField.onkeyup = function(){
 
   //If match save to search result
   for (let i = 0; i < employees.length; i++){
-    if (employees[i].name.first.includes(input.toLowerCase())  || employees[i].name.last.includes(input.toLowerCase()) || employees[i].login.username.includes(input.toLowerCase())){
+    if (employees[i].name.first.toLowerCase().includes(input.toLowerCase())  || employees[i].name.last.toLowerCase().includes(input.toLowerCase()) || employees[i].login.username.includes(input.toLowerCase())){
       searchResult.push(employees[i]);
       const employeesDisplayed = document.querySelectorAll('employee-card');
       console.log(searchResult);
