@@ -82,7 +82,7 @@ function displayEmployee(employeeArray, employeeNumber){
   const email = employee.email;
   const city = employee.location.city;
   const phone = employee.cell;
-  const address = employee.location.street + ', ' + employee.location.city + ' ' + employee.location.postcode;
+  const address = employee.location.street.name + ' ' + employee.location.street.number + ', ' + employee.location.city + ' ' + employee.location.postcode;
   const birthday = 'Birthday: ' + employee.dob.date.substr(5, 2) + '/' + employee.dob.date.substr(8, 2) + '/' + employee.dob.date.substr(2, 2);
 
   const main = document.getElementById('main');
