@@ -32,7 +32,7 @@ function displayEmployees(employees){
     const email = employee.email;
     const city = employee.location.city;
     const phone = employee.cell;
-    const address = employee.location.street + ', ' + employee.location.postcode;
+    const address = employee.location.street.name + ' ' + employee.location.street.number + ', ' + ', ' + employee.location.postcode;
     const birthday = employee.dob.date.substr(5, 2) + '/' + employee.dob.date.substr(8, 2) + '/' + employee.dob.date.substr(2, 2);
     // Employee Card
     const employeeCard = document.createElement('div');
