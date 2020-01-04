@@ -78,11 +78,11 @@ function displayEmployee(employeeArray, employeeNumber){
   // Variables
   const employee = employeeArray[employeeNumber];
   const portrait = employee.picture.large;
-  const name = capitalizeWords(employee.name.first) + ' ' + capitalizeWords(employee.name.last);
+  const name = employee.name.first + ' ' + employee.name.last;
   const email = employee.email;
-  const city = capitalizeWords(employee.location.city);
+  const city = employee.location.city;
   const phone = employee.cell;
-  const address = capitalizeWords(employee.location.street) + ', ' + capitalizeWords(employee.location.city) + ' ' + employee.location.postcode;
+  const address = employee.location.street + ', ' + employee.location.city + ' ' + employee.location.postcode;
   const birthday = 'Birthday: ' + employee.dob.date.substr(5, 2) + '/' + employee.dob.date.substr(8, 2) + '/' + employee.dob.date.substr(2, 2);
 
   const main = document.getElementById('main');
