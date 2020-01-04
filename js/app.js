@@ -28,11 +28,11 @@ function displayEmployees(employees){
     const employee = employees[i];
     const employeeNumber = i;
     const portrait = employee.picture.large;
-    const name = capitalizeWords(employee.name.first) + ' ' + capitalizeWords(employee.name.last);
+    const name = employee.name.first + ' ' + employee.name.last;
     const email = employee.email;
-    const city = capitalizeWords(employee.location.city);
+    const city = employee.location.city;
     const phone = employee.cell;
-    const address = capitalizeWords(employee.location.street) + ', ' + employee.location.postcode;
+    const address = employee.location.street + ', ' + employee.location.postcode;
     const birthday = employee.dob.date.substr(5, 2) + '/' + employee.dob.date.substr(8, 2) + '/' + employee.dob.date.substr(2, 2);
     // Employee Card
     const employeeCard = document.createElement('div');
@@ -240,10 +240,3 @@ searchField.onkeyup = function(){
   }
 
 };
-
-// =============================================================================
-// HELPER FUNCTIONS
-// =============================================================================
-function capitalizeWords(string) {
-  return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-}
